@@ -1,0 +1,34 @@
+<template>
+	<c-modal-popup-l-w-c is-modal-open={isModalOpened} onmodalclose={handleModalClose}></c-modal-popup-l-w-c>
+	<lightning-card title="Datatable" icon-name="standard:action_list_component"> 
+		
+		<div class="input_item d-flex">
+            <lightning-input type="date" onchange={handlerFirstDate} label="FirstDate"></lightning-input>
+        </div>
+        <div class="input_item d-flex">
+            <lightning-input type="date" onchange={handlerSecondDate} label="SecondDate"></lightning-input>
+        </div>
+        <lightning-button variant="brand" label="Sort by date" title="Submit" onclick={buttonDate} class="slds-m-left_x-small"></lightning-button>
+        <br />
+
+		<lightning-button variant="brand" label="New" title="New" onclick={handleOpenModal} class="slds-m-left_x-small"></lightning-button>
+		<br/>
+		<div style="width: auto;">
+			<template if:true={data}>
+				<lightning-datatable 
+					data={TaskList} 
+					columns={columns}
+					key-field="id" 
+					hide-checkbox-column="true"
+					onrowaction={handleRowActions}>
+					</lightning-datatable>        
+				</template>
+			<c-pagination records={data} onupdate={updateallTaskHandler}></c-pagination>
+		</div>
+
+		<!-- Spinner -->
+		<div if:true={showLoadingSpinner}>
+			<lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+		</div>
+	</lightning-card>
+ </template>
